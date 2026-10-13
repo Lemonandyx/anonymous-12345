@@ -1,0 +1,15 @@
+# Copy this file and replace every /path/to/... value for your installation.
+data_dir: /path/to/qa-datasets
+dataset_name: nq
+split: [dev, test]
+
+retrieval_model_path: /path/to/e5-large-v2
+index_path: /path/to/wiki18_e5_ivf4096_flat.index
+corpus_path: /path/to/wiki18_21m_passages.jsonl
+
+generator_model_path: /path/to/Meta-Llama-3-8B-Instruct
+gpu_id: "0"
+progressive_retrieval_device: cuda:0
+
+save_dir: output
+save_note: paper_nq_llama3_8b

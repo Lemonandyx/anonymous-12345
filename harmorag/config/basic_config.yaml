@@ -1,0 +1,106 @@
+# Minimal defaults for the HarmoRAG paper implementation.
+
+model2path:
+  e5: intfloat/e5-large-v2
+  llama3-8b-instruct: meta-llama/Meta-Llama-3-8B-Instruct
+model2pooling:
+  e5: mean
+method2index:
+  e5: null
+
+data_dir: dataset
+dataset_name: nq
+split: [test]
+test_sample_num: null
+random_sample: false
+seed: 20260713
+gpu_id: "0"
+
+save_dir: output
+save_note: harmorag
+disable_save: false
+save_intermediate_data: true
+save_metric_score: true
+
+retrieval_method: e5
+retrieval_model_path: null
+retrieval_pooling_method: mean
+retrieval_query_max_length: 128
+retrieval_use_fp16: true
+retrieval_batch_size: 256
+retrieval_topk: 10
+index_path: null
+corpus_path: null
+faiss_gpu: false
+instruction: null
+use_sentence_transformer: false
+silent_retrieval: true
+save_retrieval_cache: false
+use_retrieval_cache: false
+retrieval_cache_path: null
+use_reranker: false
+rerank_model_name: null
+rerank_model_path: null
+rerank_pooling_method: null
+
+framework: vllm
+generator_model: llama3-8b-instruct
+generator_model_path: null
+generator_max_input_len: 4096
+generator_batch_size: 256
+generator_gpu_num: 1
+gpu_memory_utilization: 0.85
+enable_prefix_caching: true
+vllm_kv_free_block_policy: heat
+vllm_engine_kwargs: {}
+generation_params:
+  max_tokens: 32
+  temperature: 0
+is_reasoning: false
+
+# Paper WRD parameters: D=100, alpha=1, m=6, beta=0.4, mu=0.75,
+# epsilon=0.001, patience=16; maximum nprobe=128.
+progressive_bootstrap_nprobe: 28
+progressive_fast_max_nprobe: 128
+progressive_max_nprobe: 128
+progressive_heap_topk: 100
+progressive_wrd_topk: 100
+progressive_wrd_alpha: 1.0
+progressive_wrd_window: 6
+progressive_wrd_beta: 0.4
+progressive_wrd_mu: 0.75
+progressive_wrd_epsilon: 0.001
+progressive_wrd_patience: 16
+progressive_enable_wrd: true
+progressive_index_mmap: true
+progressive_retrieval_device: cuda:0
+progressive_omp_threads: 64
+progressive_native_continuous_scan: true
+progressive_native_worker_threads: 64
+progressive_native_global_scan_permits: 64
+progressive_native_lookahead: 8
+progressive_native_scanner_module: harmorag_native_scanner
+
+progressive_pipeline_batch_size: 32
+progressive_prefetch_batches: 1
+progressive_event_queue_size: 65536
+progressive_max_active_retrieval_sessions: 512
+progressive_max_generation_chains: 512
+progressive_full_retrieval_continuous_batching: true
+progressive_event_driven_generation: true
+progressive_store_retrieval_trace: true
+progressive_store_prompt_trajectory: false
+progressive_capture_prefix_cache_stats: true
+progressive_max_evidence_documents: 10
+progressive_search_document_limit: 10
+progressive_final_topk: 10
+progressive_generation_max_tokens: 32
+progressive_final_max_answer_tokens: 32
+progressive_final_generation_stop: ["\n", "\r"]
+progressive_require_grounded_answer: true
+progressive_compact_answerability_prompt: true
+
+metrics: [em, f1, acc]
+metric_setting:
+  retrieval_recall_topk: 10
+  tokenizer_name: gpt-4
